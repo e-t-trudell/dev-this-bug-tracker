@@ -2,7 +2,7 @@
     import { ref, reactive, onMounted, computed } from 'vue';
     import tickets from './tickets.json';
     import CreateEditTicket from '../Tickets/CreateEditTicket.vue';
-    // import SingleTicket from '../Tickets/SingleTicket.vue';
+    import SingleTicket from '../Tickets/SingleTicket.vue';
     import DashBoard_Table_Row from './DashBoard_Table_Row/DashBoard_Table_Row.vue';
     import CreateEditUser from '../Users/CreateEditUser.vue';
     import UserProfile from '../Users/UserProfile.vue';
@@ -20,8 +20,8 @@
     const userProfileVisable = ref(false);
     const loginFormVisable = ref(false);
     const user = ref('Guest');
-    const tableData = ref(tickets);
-    const filteredTableData = ref(tickets);
+    const tableData = ref([]);
+    const filteredTableData = ref([]);
     const rowsPerPage = 5;
     const currentPage = ref(1);
     const maxPaginationButtons = 5;
@@ -63,9 +63,8 @@
                 }
             )
             console.log(response.data);
-            currentPageDataInfo == response.data;
-
-            // console.log(modalData);
+            tableData.value = response.data;
+            filteredTableData.value = response.data;
         } catch (error) {
             console.log(error.response.data);
         }
@@ -86,6 +85,14 @@
     };
     
     const currentPageDataInfo = computed(() => {
+        console.log(tableData.value)
+        tableData.value = async () => {
+            try {
+                getTickets();
+            } catch (error) {
+                console.log(error.response.data)
+            }
+        }
         if (searchTerm.value != searchTermCheck.value) {
             filterTableData();
         }
@@ -279,6 +286,10 @@
     function receiveEmit(user){
         alert('Loged in user is:' + user);
     }
+
+    onMounted(() => {
+      getTickets();
+    });
 </script>
 
 <template>
@@ -289,8 +300,6 @@
     />
     <div id="container">
         <div id="nav">
-            <!-- Test Button -->
-            <button @click="getTickets()">Test</button>
             <h2>Welcome, User</h2>
             
             <div v-if="user">

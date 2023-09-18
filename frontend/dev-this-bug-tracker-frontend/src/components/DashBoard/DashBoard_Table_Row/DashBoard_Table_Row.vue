@@ -29,7 +29,8 @@ export default {
 <template>
     <td>{{ ticketData.id }}</td>
     <td>{{ ticketData.title }}</td>
-    <td>{{ ticketData.assigned_user.username }}</td>
+    <!-- ticketData.assigned_user.username  -->
+    <td>{{ "Temp" }}</td>
     <td>{{ ticketData.status_id }}</td>
     <td>{{ ticketData.created_date }}</td>
 </template>
