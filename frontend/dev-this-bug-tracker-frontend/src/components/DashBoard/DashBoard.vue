@@ -56,19 +56,22 @@
     const getTickets = async () => {
         try {
             let response = await axios.get(
-                `http://127.0.0.1:8000/tickets/`, { 
+                `http://127.0.0.1:8000/ticket/`, { 
                     headers : {
-                        Authorization : "Bearer " + token
+                        Authorization : "Bearer " + localStorage.getItem('token')
                     }
                 }
             )
             console.log(response.data);
-            modalData == response.data;
+            currentPageDataInfo == response.data;
+
             // console.log(modalData);
         } catch (error) {
             console.log(error.response.data);
         }
     }
+
+    
 
     function totalRows() {
         if(searchTerm.value != '') {
