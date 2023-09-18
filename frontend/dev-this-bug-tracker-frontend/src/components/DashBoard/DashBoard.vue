@@ -2,7 +2,7 @@
     import { ref, reactive, onMounted, computed } from 'vue';
     import tickets from './tickets.json';
     import CreateEditTicket from '../Tickets/CreateEditTicket.vue';
-    import SingleTicket from '../Tickets/SingleTicket.vue';
+    // import SingleTicket from '../Tickets/SingleTicket.vue';
     import DashBoard_Table_Row from './DashBoard_Table_Row/DashBoard_Table_Row.vue';
     import CreateEditUser from '../Users/CreateEditUser.vue';
     import UserProfile from '../Users/UserProfile.vue';
@@ -56,10 +56,14 @@
     const getTickets = async () => {
         try {
             let response = await axios.get(
-                `http://127.0.0.1:8000/user/`
-            );
+                `http://127.0.0.1:8000/tickets/`, { 
+                    headers : {
+                        Authorization : "Bearer " + token
+                    }
+                }
+            )
             console.log(response.data);
-            // modalData == response.data;
+            modalData == response.data;
             // console.log(modalData);
         } catch (error) {
             console.log(error.response.data);
