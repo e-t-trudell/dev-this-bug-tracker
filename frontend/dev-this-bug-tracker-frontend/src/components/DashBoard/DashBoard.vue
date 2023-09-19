@@ -169,9 +169,9 @@
 
     }
     
-    function logout(){
-        this.$store.commit('logout')
-    }
+    // function logout(){
+    //     this.$store.commit('logout')
+    // }
 
     function showModal(modalType, ticketData) {
         switch(modalType) {
